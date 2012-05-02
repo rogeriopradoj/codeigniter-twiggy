@@ -60,8 +60,9 @@ class Twiggy
 		}
 		catch(Twig_Error_Loader $e)
 		{
-			log_message('error', 'Twiggy: failed to load the default theme');
-			show_error($e->getRawMessage());
+			$error_message = 'Twiggy: failed to load the default theme';
+			log_message('error', $error_message . ' - ' . $e->getRawMessage());
+			show_error($error_message);
 		}
 
 		// Decide whether to enable Twig cache. If it is set to be enabled, then set the path where cached files will be stored.
@@ -311,8 +312,9 @@ class Twiggy
 	{
 		if(!is_dir(realpath($this->_themes_base_dir. $theme)))
 		{
-			log_message('error', 'Twiggy: requested theme '. $theme .' has not been loaded because it does not exist.');
-			show_error("Theme does not exist in {$this->_themes_base_dir}{$theme}.");
+			$error_message = 'Twiggy: requested theme '. $theme .' has not been loaded because it does not exist.';
+			log_message('error', $error_message . " - Theme does not exist in {$this->_themes_base_dir}{$theme}.");
+			show_error($error_message);
 		}
 
 		$this->_theme = $theme;
@@ -417,7 +419,9 @@ class Twiggy
 		}
 		catch(Twig_Error_Loader $e)
 		{
-			show_error($e->getRawMessage());
+			$error_message = 'Twiggy: failed to render';
+			log_message('error', $error_message . ' - ' . $e->getRawMessage());
+			show_error($error_message);
 		}
 	}
 
@@ -439,7 +443,9 @@ class Twiggy
 		}
 		catch(Twig_Error_Loader $e)
 		{
-			show_error($e->getRawMessage());
+			$error_message = 'Twiggy: failed to display';
+			log_message('error', $error_message . ' - ' . $e->getRawMessage());
+			show_error($error_message);
 		}
 	}
 
